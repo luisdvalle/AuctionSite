@@ -55,7 +55,7 @@ namespace AuctionApp.Common.Services
                     : AuctionAppConstants.ItemStatusSold;
                 await _repository.InsertOrReplaceEntityAsync(StorageTablesNames.Items, itemsTableEntity);
 
-                if (bestBidder.Value <= 0)
+                if (bestBidder.Value <= itemsTableEntity.Price)
                 {
                     auctionsTableEntity.Status = AuctionAppConstants.AuctionStatusFinished;
                     await _repository.InsertOrReplaceEntityAsync(StorageTablesNames.Auctions, auctionsTableEntity);
