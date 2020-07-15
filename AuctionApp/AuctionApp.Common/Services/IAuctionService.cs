@@ -13,6 +13,6 @@ namespace AuctionApp.Common.Services
         /// Processes all active Auctions in order to determine the winner bid
         /// </summary>
         /// <returns>An enumerable with all Auctions processed</returns>
-        Task<IEnumerable<AuctionsTableEntity>> ProcessAuctions();
+        Task<IEnumerable<AuctionsTableEntity>> ProcessAuctionsAsync();
     }
 }

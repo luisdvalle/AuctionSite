@@ -16,7 +16,7 @@ namespace AuctionApp.Common.Services
             _repository = repository;
         }
 
-        public async Task<IEnumerable<AuctionsTableEntity>> ProcessAuctions()
+        public async Task<IEnumerable<AuctionsTableEntity>> ProcessAuctionsAsync()
         {
             var auctionsTableEntities =
                 await _repository.GetAllEntitiesAsync<AuctionsTableEntity>(StorageTablesNames.Auctions,
