@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AuctionApp.Common.Constants;
@@ -15,11 +16,12 @@ namespace AuctionApp.Common.Services
             _repository = repository;
         }
 
-        public async Task ProcessAuctions()
+        public async Task<IEnumerable<AuctionsTableEntity>> ProcessAuctions()
         {
             var auctionsTableEntities =
                 await _repository.GetAllEntitiesAsync<AuctionsTableEntity>(StorageTablesNames.Auctions,
                     AuctionAppConstants.AuctionsTablePartitionKey);
+            var entitiesProcessed = new List<AuctionsTableEntity>();
 
             foreach (var auctionsTableEntity in auctionsTableEntities)
             {
@@ -34,13 +36,16 @@ namespace AuctionApp.Common.Services
                 var auctionItem = await _repository.GetEntityAsync<ItemsTableEntity>(StorageTablesNames.Items,
                     auctionsTableEntity.Id, AuctionAppConstants.ItemsTablePartitionKey);
 
-                auctionItem.Status = bestBidder.Value < auctionItem.Price ? AuctionAppConstants.ItemStatusAwaiting : AuctionAppConstants.ItemStatusSold;
+                auctionItem.Status = bestBidder.Value < auctionItem.Price
+                    ? AuctionAppConstants.ItemStatusAwaiting
+                    : AuctionAppConstants.ItemStatusSold;
                 await _repository.InsertOrReplaceEntityAsync(StorageTablesNames.Items, auctionItem);
 
                 if (auctionsTableEntity.BiddersCollection.Count == 0 || bestBidder.Value <= 0)
                 {
                     auctionsTableEntity.Status = AuctionAppConstants.AuctionStatusFinished;
                     await _repository.InsertOrReplaceEntityAsync(StorageTablesNames.Auctions, auctionsTableEntity);
+                    entitiesProcessed.Add(auctionsTableEntity);
 
                     continue;
                 }
@@ -49,7 +54,10 @@ namespace AuctionApp.Common.Services
                 auctionsTableEntity.BuyerEmail = bestBidder.Key;
                 auctionsTableEntity.Status = AuctionAppConstants.AuctionStatusFinished;
                 await _repository.InsertOrReplaceEntityAsync(StorageTablesNames.Auctions, auctionsTableEntity);
+                entitiesProcessed.Add(auctionsTableEntity);
             }
+
+            return entitiesProcessed;
         }
     }
 }
