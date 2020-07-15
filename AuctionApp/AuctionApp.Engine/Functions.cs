@@ -19,7 +19,7 @@ namespace AuctionApp.Engine
             ILogger logger)
         {
             
-            var auctionsProcessed = await _auctionService.ProcessAuctions();
+            var auctionsProcessed = await _auctionService.ProcessAuctionsAsync();
 
             logger.LogInformation($"Number of Auctions processed: {auctionsProcessed.Count()}");
         }
