@@ -31,17 +31,31 @@ namespace AuctionApp.Common.Services
                     continue;
                 }
 
-                var bestBidder = auctionsTableEntity.BiddersCollection.Aggregate((currentBidder, nextBidder) =>
-                    currentBidder.Value > nextBidder.Value ? currentBidder : nextBidder);
                 var auctionItem = await _repository.GetEntityAsync<ItemsTableEntity>(StorageTablesNames.Items,
                     auctionsTableEntity.Id, AuctionAppConstants.ItemsTablePartitionKey);
+
+                if (auctionsTableEntity.BiddersCollection.Count == 0)
+                {
+                    auctionsTableEntity.Status = AuctionAppConstants.AuctionStatusFinished;
+                    await _repository.InsertOrReplaceEntityAsync(StorageTablesNames.Auctions, auctionsTableEntity);
+
+                    auctionItem.Status = AuctionAppConstants.ItemStatusAwaiting;
+                    await _repository.InsertOrReplaceEntityAsync(StorageTablesNames.Items, auctionItem);
+
+                    entitiesProcessed.Add(auctionsTableEntity);
+
+                    continue;
+                }
+
+                var bestBidder = auctionsTableEntity.BiddersCollection.Aggregate((currentBidder, nextBidder) =>
+                    currentBidder.Value > nextBidder.Value ? currentBidder : nextBidder);
 
                 auctionItem.Status = bestBidder.Value < auctionItem.Price
                     ? AuctionAppConstants.ItemStatusAwaiting
                     : AuctionAppConstants.ItemStatusSold;
                 await _repository.InsertOrReplaceEntityAsync(StorageTablesNames.Items, auctionItem);
 
-                if (auctionsTableEntity.BiddersCollection.Count == 0 || bestBidder.Value <= 0)
+                if (bestBidder.Value <= 0)
                 {
                     auctionsTableEntity.Status = AuctionAppConstants.AuctionStatusFinished;
                     await _repository.InsertOrReplaceEntityAsync(StorageTablesNames.Auctions, auctionsTableEntity);
