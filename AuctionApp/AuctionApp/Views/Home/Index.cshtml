@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="~/images/Auction.jpg" alt="ASP.NET" class="img-responsive" />
+            <div class="carousel-caption" role="option">
+                <p>
+                    Start bidding
+                    <a class="btn btn-default" asp-controller="Auction" asp-action="Search">
+                        Go
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <h2>My Items</h2>
+        <ul>
+            <li>View all your items and current status @if(User.Identity.IsAuthenticated){ <a asp-controller="Item" asp-action="Search">Go</a> }</li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <h2>Start Bidding</h2>
+        <ul>
+            <li>Buy Items by placing a bid on them @if (User.Identity.IsAuthenticated)
+                                                   {<a asp-controller="Auction" asp-action="Search">Go</a>}</li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <h2>My Current Bids</h2>
+        <ul>
+            <li>Check your current bids and the status of the Auction @if (User.Identity.IsAuthenticated)
+                                                                      {<a asp-controller="Auction" asp-action="List">Go</a>}</li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <h2>About</h2>
+        <ul>
+            <li><a asp-controller="" asp-action="">About this app</a></li>
+        </ul>
+    </div>
+</div>

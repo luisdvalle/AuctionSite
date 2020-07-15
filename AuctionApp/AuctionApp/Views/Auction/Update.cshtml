@@ -1,0 +1,47 @@
+﻿@model AuctionApp.Models.AuctionBidViewModel
+
+@{
+    ViewData["Title"] = "Place your Bid";
+}
+
+<h2>Place your Bid</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Auction" asp-action="Update" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" class="form-control" />
+            <div class="form-group">
+                <label asp-for="ItemName" class="control-label"></label>
+                <input disabled="disabled" asp-for="ItemName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input disabled="disabled" asp-for="Status" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="StartingAt" class="control-label"></label>
+                <input disabled="disabled" asp-for="StartingAt" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="FinishingAt" class="control-label"></label>
+                <input disabled="disabled" asp-for="FinishingAt" class="form-control" />
+            </div>
+            <input type="hidden" asp-for="OwnerEmail" class="form-control" />
+            <div class="form-group">
+                <label asp-for="BuyersBid" class="control-label"></label>
+                <input asp-for="BuyersBid" class="form-control" />
+                <span asp-validation-for="BuyersBid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Bid!" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Auction" asp-action="Search">Back to Auctions List</a>
+</div>
+

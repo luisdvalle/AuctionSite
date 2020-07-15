@@ -1,0 +1,54 @@
+﻿@using AuctionApp.Common.Constants
+@model IEnumerable<AuctionApp.Models.AuctionBidViewModel>
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h2>Auctions</h2>
+
+<p>
+    Number of Auctions: @Model.Count()
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartingAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FinishingAt)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartingAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinishingAt)
+            </td>
+            <td>
+                @if (item.Status == AuctionAppConstants.AuctionStatusInProgress)
+                {@Html.ActionLink("View", "Update", new { id = item.Id })
+            }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

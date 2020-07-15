@@ -1,0 +1,57 @@
+﻿@model IEnumerable<AuctionApp.Models.AuctionBidViewModel>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h2>These are your current bids at Auctions</h2>
+
+<p>
+    Total of bids: @Model.Count()
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BuyersBid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartingAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FinishingAt)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BuyersBid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartingAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinishingAt)
+            </td>
+            <td>
+                @Html.ActionLink("Change your Bid", "Update", "Auction", new { id=item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
