@@ -75,6 +75,7 @@ The  following business rules have been assumed and implemented in this solution
 * When an `Auction` is created, it is active for 5 min only. This is to facilitate testing the application and see the progress of an auction in a short period of time.
 * The Starting Time of an Auction is at the time the User initiates an Auction and the Finishing Time is 5 minutes later, hence Users cannot choose a Starting Time in the future  and the Finishing Time is automatically set by the appication.
 * Items have a Price propery defined by the User that owns the Item. This Price is the minimum an Item should be sold for. If all the bids in this item are below that price, the Auction is marked as Finished and the Item as not sold.
+* All Times shown in the application are UTC times.
 
 ## License
 
