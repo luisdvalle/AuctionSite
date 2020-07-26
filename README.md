@@ -2,8 +2,6 @@
 
 Auction website
 
-Hi Engineering team. This project has been created to provide a solution for the Auction Website Coding Challenge and as part of my application for a Software Engineer role at EdApp. In the sections below you will find comments, assumptions, requirements to run this project, and all the important information related to this project. Thank you for the opportunity to solve this test.
-
 ## Application components
 
 This VS Solution includes
@@ -86,4 +84,4 @@ The  following business rules have been assumed and implemented in this solution
 
 ## Author
 
-Luis Del Valle. 0452523942. luis@luis-delvalle.com
+Luis Del Valle.
