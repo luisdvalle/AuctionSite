@@ -30,7 +30,7 @@ For the Azure Storage Table, the application will connect to a cloud instance (*
 
 ```json
 "ConnectionStrings": {
-    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=eddappauctionsite;AccountKey=hRwYFEBoOlI8OaFH4EJoBK3bhs9esT2fuGlxz2N4daNjIUEBDW3tifziyYO1BSg5mjXelA6lLJh8VrJOkXhgOg==;EndpointSuffix=core.windows.net"
+    "AzureWebJobsStorage": ""
   }
 ```
 
