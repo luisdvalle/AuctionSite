@@ -1,6 +1,4 @@
-# EdApp Coding Challenge
-
-Auction website
+# Auction Website
 
 ## Application components
 
